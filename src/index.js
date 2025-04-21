@@ -1,5 +1,5 @@
 require('dotenv').config();
-const { Client, IntentsBitField } = require('discord.js');
+const { Client, IntentsBitField, EmbedBuilder } = require('discord.js');
 
 const client = new Client({
     intents: [
@@ -9,6 +9,21 @@ const client = new Client({
         IntentsBitField.Flags.MessageContent
         ],
 });
+
+const roles = [
+    {
+        id: "1363845898471473203",
+        lable: "Red"
+    },
+    {
+        id: "1363846115568521276",
+        lable: "Yellow"
+    },
+    {
+        id: "1363846069771042998",
+        lable: "Green"
+    },
+]
 
 client.on('ready', (c) => {
     console.log(`Logged in as ${c.user.tag}`);
@@ -55,6 +70,16 @@ client.on('interactionCreate', (interaction) => {
         const randomMessage = responses[Math.floor(Math.random() * responses.length)];
 
         interaction.reply(`${randomMessage} ${num1 + num2}.`);
+    }
+    if(interaction.commandName === 'embed') {
+        const embed = new EmbedBuilder()
+        .setTitle("Embed Title")
+        .setDescription("Embed Description")
+        .setColor("Blue")
+        .setTimestamp()
+        .setFooter({ text: "Embed Footer" });
+        interaction.reply({ embeds: [embed] });
+
     }
 })
 
