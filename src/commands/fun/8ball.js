@@ -13,7 +13,6 @@ module.exports = {
     ],
 
     callback: async (client, interaction) => {
-        const question = interaction.options.getString('task');
 
         const eightballResponse = [
             "Absolutely yes 🔮",
