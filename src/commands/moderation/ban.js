@@ -29,27 +29,28 @@ module.exports =  {
 
     callback: async (client, interaction) => {
         const targetUser = interaction.options.getUser('user');
-        const targetMember = interaction.guild.members.fetch(targetUser.id).catch(() => null);
+        const targetMember = await interaction.guild.members.fetch(targetUser.id).catch(() => null);
         const banReason = interaction.options.getString('reason') || 'No reason provided.';
+        await interaction.deferReply();
 
         if(!targetMember) {
-            return interaction.reply(`Who you tryna ban? I dont see them in the server... 🙄`);
+            return interaction.editReply(`Who you tryna ban? I dont see them in the server... 🙄`);
         }
 
         if(targetUser.id === interaction.guild.onwerId) {
-            return interaction.reply(`Did you seriously try and ban the owner of the server..?`);
+            return interaction.editReply(`Did you seriously try and ban the owner of the server..?`);
         }
 
         if(targetUser.id === interaction.user.id) {
-            return interaction.reply(`Why you tryna ban yourself? 🤣`);
+            return interaction.editReply(`Why you tryna ban yourself? 🤣`);
         }
 
         if(targetUser.id === interaction.client.user.id) {
-            return interaction.reply(`Did you just try and ban me..? did i do something wrong? 🥲`);
+            return interaction.editReply(`Did you just try and ban me..? did i do something wrong? 🥲`);
         }
 
         if(!targetMember.bannable) {
-            return interaction.reply(`I don't think i can ban this member, recheck my permission...`);
+            return interaction.editReply(`I don't think i can ban this member, recheck my permission...`);
         }
 
         try {
@@ -60,37 +61,35 @@ module.exports =  {
 
         await targetMember.ban({ banReason });
         const banMessages = [
-            `✨ ${targetUser.tag} has been yeeted into the void.`,
-            `🚫 ${targetUser.tag} got banned harder than Internet Explorer loading Google.`,
-            `💀 ${targetUser.tag} just got *obliterated*.`,
-            `🥶 ${targetUser.tag} caught these ban hands.`,
-            `☠️ ${targetUser.tag} is now just a memory.`,
-            `👋 Say goodbye to ${targetUser.tag}! Don't miss them.`,
-            `🧹 ${targetUser.tag} just got swept out of the server.`,
-            `🪦 RIP ${targetUser.tag}, banned and forgotten.`,
-            `🔨 ${targetUser.tag} just got hammer smashed.`,
-            `📦 ${targetUser.tag} has been *permanently shipped out.*`,
-            `🚀 ${targetUser.tag} got launched outta here.`,
-            `👢 ${targetUser.tag} got kicked into another dimension.`,
-            `🕳️ ${targetUser.tag} fell into the ban abyss.`,
-            `🎯 ${targetUser.tag} was a moving target... and still got hit.`,
-            `🥾 ${targetUser.tag} got the legendary boot.`,
-            `📜 Another one bites the dust: ${targetUser.tag}.`,
-            `🐍 ${targetUser.tag} got banned faster than a snake slithers.`,
-            `💣 ${targetUser.tag} exploded into a ban wave.`,
-            `🏴‍☠️ ${targetUser.tag} walked the plank.`,
-            `🌪️ ${targetUser.tag} vanished like a weak storm.`,
-            `🥷 ${targetUser.tag} got stealth-banned.`,
-            `🐸 ${targetUser.tag} couldn't jump out of this ban.`,
-            `🎲 Rolled the dice... ${targetUser.tag} lost.`,
-            `🛑 ${targetUser.tag}, access DENIED forever.`,
-            `🔥 ${targetUser.tag} got roasted AND banned. Double kill.`,
+            `✨ ${targetUser} has been yeeted into the void.`,
+            `🚫 ${targetUser} got banned harder than Internet Explorer loading Google.`,
+            `💀 ${targetUser} just got *obliterated*.`,
+            `🥶 ${targetUser} caught these ban hands.`,
+            `☠️ ${targetUser} is now just a memory.`,
+            `👋 Say goodbye to ${targetUser}! Don't miss them.`,
+            `🧹 ${targetUser} just got swept out of the server.`,
+            `🪦 RIP ${targetUser}, banned and forgotten.`,
+            `🔨 ${targetUser} just got hammer smashed.`,
+            `📦 ${targetUser} has been *permanently shipped out.*`,
+            `🚀 ${targetUser} got launched outta here.`,
+            `👢 ${targetUser} got kicked into another dimension.`,
+            `🕳️ ${targetUser} fell into the ban abyss.`,
+            `🎯 ${targetUser} was a moving target... and still got hit.`,
+            `🥾 ${targetUser} got the legendary boot.`,
+            `📜 Another one bites the dust: ${targetUser}.`,
+            `🐍 ${targetUser} got banned faster than a snake slithers.`,
+            `💣 ${targetUser} exploded into a ban wave.`,
+            `🏴‍☠️ ${targetUser} walked the plank.`,
+            `🌪️ ${targetUser} vanished like a weak storm.`,
+            `🥷 ${targetUser} got stealth-banned.`,
+            `🐸 ${targetUser} couldn't jump out of this ban.`,
+            `🎲 Rolled the dice... ${targetUser} lost.`,
+            `🛑 ${targetUser}, access DENIED forever.`,
+            `🔥 ${targetUser} got roasted AND banned. Double kill.`,
         ];
         const randomBanMessage = banMessages[Math.floor(Math.random() * banMessages.length)];
-interaction.reply(randomBanMessage);
+        interaction.editReply(randomBanMessage);
 
-        
-        interaction.reply(`${randomBanMessage}`);
     }
 
 };
