@@ -40,7 +40,7 @@ module.exports = {
         let warnList = "";
 
         userWarns.forEach((warn, index) => {
-            warnList += `\n**${index + 1}.** ❗️Reason: ${warn.reason} — *by ${warn.mod}* (${new Date(warn.date).toLocaleString()})`;
+            warnList += `\n**${index + 1}.** ❗️Reason: ${warn.reason} — *by ${warn.mod}* (ID: \`${warn.id}\`)`;
         });
 
         const warningsEmbed = new EmbedBuilder()
